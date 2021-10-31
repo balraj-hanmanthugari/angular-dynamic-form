@@ -1,0 +1,71 @@
+<!-- <div [formGroup]="question">
+
+  <label [attr.for]="question.linkId">{{ question.text }}</label>
+
+  <div [ngSwitch]="question.type">
+    <input
+      *ngSwitchCase="'string'"
+      [formControlName]="question.linkId"
+      [id]="question.linkId"
+      type="text"
+    />
+
+    <div *ngSwitchCase="'boolean'" [formControlName]="question.linkId">
+      <input type="”radio”" name="question.linkId" value="”yes”" />
+      Yes >
+
+      <input type="”radio”" name="question.linkId" value="”no”" />
+      No >
+    </div>
+
+    <input
+      *ngSwitchCase="'date'"
+      [formControlName]="question.linkId"
+      [id]="question.linkId"
+      type="date"
+    />
+
+    <select
+      [id]="question.linkId"
+      *ngSwitchCase="'choice'"
+      [formControlName]="question.linkId"
+    >
+      <option
+        *ngFor="let opt of question.options"
+        [value]="opt.valueCoding.code"
+      >
+        {{ opt.valueCoding.display }}
+      </option>
+    </select>
+  </div>
+
+  <button [disabled]="dynamicForm.valid">Save</button>
+</div> -->
+
+<div [formGroup]="questionsForm">
+  <div
+    formArrayName="questions"
+    *ngFor="let t of questions.controls; let i = index"
+  >
+    <label>{{ t.value.text }}</label>
+    <input *ngIf="t.value.type == 'string'" formControlName="i" type="text" />
+    <input
+      *ngIf="t.value.type == 'date'"
+      formControlName="i"
+      type="date"
+      [value]="todayDate"
+    />
+    <span *ngIf="t.value.type == 'boolean'">
+      <input type="radio" name="i" value="yes" /> Yes
+      <input type="radio" name="i" value="no" /> No
+    </span>
+    <select *ngIf="t.value.type == 'choice'" formControlName="i">
+      <option *ngFor="let opt of t.value.option" value="opt.valueCoding.code">
+        {{ opt.valueCoding.display }}
+      </option>
+    </select>
+  </div>
+  
+    <div>{{questionsForm.value | json}}</div>
+
+</div>
